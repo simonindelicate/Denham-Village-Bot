@@ -50,8 +50,9 @@ This repo includes an embeddings file that contains a lot of information about D
    \```env
    OPENAI_API_KEY=your_api_key_here
    \```
-
-4. **Running the Application with Netlify Dev**
+   If Deploying to Netlify or similar, you'll need to add your API key as an environment variable.
+   
+5. **Running the Application with Netlify Dev**
    \```bash
    netlify dev
    \```
