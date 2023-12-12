@@ -9,6 +9,7 @@ body, html {
     color: #000; /* Traditional black text */
     font-family: 'IM Fell English', serif;
     font-size: 16pt;
+    /* background-image: url('texture.png'); */
 }
 
 #hero {
