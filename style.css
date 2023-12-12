@@ -1,0 +1,117 @@
+/* General body styling for a 17th-century look */
+
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #f4e8c1; /* Parchment-like background */
+    color: #000; /* Traditional black text */
+    font-family: 'IM Fell English', serif;
+    font-size: 16pt;
+}
+
+#hero {
+    width: 256px;
+    height: 256px;
+    margin: 35px auto;
+    border: 3px solid #000; /* Adding a border for a framed look */
+}
+#hero img {
+     width: 256px;
+     height: auto;
+ }
+
+
+/* Chat interface styling with a classic touch */
+#chat-interface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    height: 100%;
+    text-align: center;
+}
+
+/* Input field styling with an old manuscript feel */
+#query-input {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #f4e8c1;
+    border: 1px solid #000;
+    color: #000;
+    font-size: 16pt; 
+       font-family: 'IM Fell English', serif;
+       font-style: italic;
+}
+
+/* Placeholder styling for input */
+#query-input::placeholder {
+    color: #000;
+}
+
+/* Submit button styling with a classic look */
+#submit-button {
+    padding: 10px 20px;
+    background-color: #d3b88c; /* Old paper-like button color */
+    border: 2px solid #000;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+        font-family: 'IM Fell English', serif;
+        font-size: 16pt; 
+}
+
+#submit-button:hover {
+    background-color: #b89f72; /* Darker shade on hover */
+    color: black;
+}
+
+/* Response area styling with an old book feel */
+#response-area {
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid #000;
+    width: 60%;
+    text-align: left;
+    background-color: #f4e8c1; /* Consistent parchment background */
+}
+
+/* Scrollbar styling for response area */
+#response-area::-webkit-scrollbar {
+    width: 12px;
+}
+
+#response-area::-webkit-scrollbar-thumb {
+    background-color: #b89f72; /* Old wood-like scrollbar color */
+    border-radius: 6px;
+}
+
+/* Media query for responsive design */
+@media (max-width: 600px) {
+    #query-input, #response-area {
+        width: 80%;
+    }
+}
+
+/* Loading animation styling */
+.loading-dots {
+    display: flex;
+    justify-content: center;
+}
+
+.loading-dots div {
+    width: 8px;
+    height: 8px;
+    background-color: #000; /* Black dots for classic look */
+    border-radius: 50%;
+    margin: 0 3px;
+    animation: loadingDots 1.0s infinite ease-in-out;
+}
+
+/* Animation keyframes */
+@keyframes loadingDots {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
