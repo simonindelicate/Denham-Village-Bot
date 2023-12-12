@@ -102,6 +102,8 @@ Modify the number (e.g., from `3` to another value) to control how many similar 
 
 Remember to test different parameter settings to fine-tune the chatbot's behavior according to your specific requirements.
 
+- script.js also includes logic to convert urls into clickable links - you'll see I added an extra specific line to convert one particular site without a www. prefix - this is becasue the bot sometimes chooses to omit the prefix and I always wanted this link to work in the example use case.
+
 ## Deploying
 
 You can deploy this chatbot on Netlify with ease. Here's how:
