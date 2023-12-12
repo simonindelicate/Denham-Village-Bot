@@ -1,4 +1,3 @@
-# A Chatbot Guide To Denham Village
 # Project Name
 
 Short description of your project.
@@ -18,6 +17,7 @@ This repository contains the code for a 17th-century themed chatbot interface, i
 
 - Node.js installed.
 - An OpenAI API key (for chatbot functionality).
+- Netlify CLI installed for local development.
 
 ### Setup
 
@@ -38,11 +38,11 @@ This repository contains the code for a 17th-century themed chatbot interface, i
    OPENAI_API_KEY=your_api_key_here
    \```
 
-4. **Running the Application**
+4. **Running the Application with Netlify Dev**
    \```bash
-   npm start
+   netlify dev
    \```
-   This will start the application on `http://localhost:3000`.
+   This will start the serverless function locally using Netlify Dev.
 
 ## Customization
 
