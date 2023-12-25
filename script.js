@@ -32,24 +32,19 @@ function submitQuery() {
 }
 
 function linkify(inputText) {
-    // First, replace the specific case for 'denhamhistory.online'
-    // and mark it to prevent further processing.
-    let replacedText = inputText.replace(/www\.denhamhistory\.online/gim, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a><!--denham-->');
-    
-    // Next, replace URLs starting with http://, https://, or ftp://
+    // First, handle the specific case to avoid double processing.
+    let specificCase = /www\.denhamhistory\.online/gim;
+    let replacedText = inputText.replace(specificCase, 'SPECIALCASE');
+
+    // Next, replace general URLs.
+    // URLs starting with http://, https://, or ftp://
     replacedText = replacedText.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1" target="_blank">$1</a>');
 
-    // Then, replace URLs starting with "www." that haven't been marked.
-    replacedText = replacedText.replace(/(^|[^\/])(www\.[\S]+(\b|$))/gim, (match) => {
-        if (match.includes('<!--denham-->')) {
-            // If the URL is marked, return it unaltered.
-            return match.replace('<!--denham-->', '');
-        } else {
-            // If it's a general case, replace it.
-            let urlPart = match.includes('www.') ? match.split('www.')[1] : match;
-            return `<a href="http://www.${urlPart}" target="_blank">www.${urlPart}</a>`;
-        }
-    });
+    // URLs starting with "www." (excluding the already handled specific case)
+    replacedText = replacedText.replace(/(^|[^\/])(www\.[\S]+(\b|$))/gim, '$1<a href="http://$2" target="_blank">$2</a>');
+
+    // Finally, revert the specific case back with proper replacement.
+    replacedText = replacedText.replace(/SPECIALCASE/g, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a>');
 
     return replacedText;
 }
