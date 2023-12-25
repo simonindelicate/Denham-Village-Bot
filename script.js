@@ -34,16 +34,23 @@ function submitQuery() {
 function linkify(inputText) {
     let replacedText;
 
-    // Specific case for 'denhamhistory.online'
-    replacedText = inputText.replace(/denhamhistory\.online/gim, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a>');
-
     // URLs starting with http://, https://, or ftp://
-    replacedText = replacedText.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1" target="_blank">$1</a>');
+    replacedText = inputText.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1" target="_blank">$1</a>');
+
+    // Specific case for 'denhamhistory.online'
+    replacedText = replacedText.replace(/denhamhistory\.online/gim, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a>');
 
     // URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-    // Exclude specific case 'denhamhistory.online'
-    replacedText = replacedText.replace(/(^|[^\/])(www\.(?!denhamhistory\.online)[\S]+(\b|$))/gim, '$1<a href="http://$2" target="_blank">$2</a>');
+    // Check if it's not already replaced by specific case.
+    replacedText = replacedText.replace(/(^|[^\/])(www\.[\S]+(\b|$))/gim, (match, p1, p2) => {
+        if (match.includes('href="http://www.denhamhistory.online"')) {
+            return match; // Skip replacement if it's the specific case
+        } else {
+            return `${p1}<a href="http://${p2}" target="_blank">${p2}</a>`; // Replace if it's not the specific case
+        }
+    });
 
     return replacedText;
 }
+
 
