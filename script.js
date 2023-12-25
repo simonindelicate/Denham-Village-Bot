@@ -34,14 +34,15 @@ function submitQuery() {
 function linkify(inputText) {
     let replacedText;
 
+    // Specific case for 'denhamhistory.online'
+    replacedText = inputText.replace(/denhamhistory\.online/gim, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a>');
+
     // URLs starting with http://, https://, or ftp://
-    replacedText = inputText.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1" target="_blank">$1</a>');
+    replacedText = replacedText.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1" target="_blank">$1</a>');
 
     // URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-    replacedText = replacedText.replace(/(^|[^\/])(www\.[\S]+(\b|$))/gim, '$1<a href="http://$2" target="_blank">$2</a>');
-
-    // Specific case for 'denhamhistory.online'
-    replacedText = replacedText.replace(/denhamhistory\.online/gim, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a>');
+    // Exclude specific case 'denhamhistory.online'
+    replacedText = replacedText.replace(/(^|[^\/])(www\.(?!denhamhistory\.online)[\S]+(\b|$))/gim, '$1<a href="http://$2" target="_blank">$2</a>');
 
     return replacedText;
 }
