@@ -32,25 +32,27 @@ function submitQuery() {
 }
 
 function linkify(inputText) {
-    let replacedText;
+    // First, replace the specific case for 'denhamhistory.online'
+    // and mark it to prevent further processing.
+    let replacedText = inputText.replace(/www\.denhamhistory\.online/gim, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a><!--denham-->');
+    
+    // Next, replace URLs starting with http://, https://, or ftp://
+    replacedText = replacedText.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1" target="_blank">$1</a>');
 
-    // URLs starting with http://, https://, or ftp://
-    replacedText = inputText.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1" target="_blank">$1</a>');
-
-    // Specific case for 'denhamhistory.online'
-    replacedText = replacedText.replace(/denhamhistory\.online/gim, '<a href="http://www.denhamhistory.online" target="_blank">denhamhistory.online</a>');
-
-    // URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-    // Check if it's not already replaced by specific case.
-    replacedText = replacedText.replace(/(^|[^\/])(www\.[\S]+(\b|$))/gim, (match, p1, p2) => {
-        if (match.includes('href="http://www.denhamhistory.online"')) {
-            return match; // Skip replacement if it's the specific case
+    // Then, replace URLs starting with "www." that haven't been marked.
+    replacedText = replacedText.replace(/(^|[^\/])(www\.[\S]+(\b|$))/gim, (match) => {
+        if (match.includes('<!--denham-->')) {
+            // If the URL is marked, return it unaltered.
+            return match.replace('<!--denham-->', '');
         } else {
-            return `${p1}<a href="http://${p2}" target="_blank">${p2}</a>`; // Replace if it's not the specific case
+            // If it's a general case, replace it.
+            let urlPart = match.includes('www.') ? match.split('www.')[1] : match;
+            return `<a href="http://www.${urlPart}" target="_blank">www.${urlPart}</a>`;
         }
     });
 
     return replacedText;
 }
+
 
 
